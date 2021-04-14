@@ -11,6 +11,13 @@ using System.Windows.Forms;
 
 namespace wEmpresa
 {
+
+    /// <summary>
+    /// Fecha: 15/04/2021
+    /// Autores: Alen Yair Camargo Zapata, Juan Diego Céspedes Montoya, Mauricio Gómez Restrepo
+    /// Descripción: Aplicación de WinForms, empresa de ropa, carga de archivos .csv y .xml
+    /// </summary>
+
     public partial class frmMenuPrincipal : Form
     {
 
@@ -30,20 +37,29 @@ namespace wEmpresa
         private void tsmiNuevo_Click(object sender, EventArgs e)
         {
 
-            //Condicional que se encarga de instanciar el objeto del formulario secundario en caso de que esté vacío
-
-            if (cargarDatos == null)
+            try
             {
-                cargarDatos = new frmMenuCargaDatos();
-                cargarDatos.FormClosed += new FormClosedEventHandler(CerrarForma);
-                cargarDatos.Show();
-            }
-            else
-            {
-                //En caso de que el formulario tenga datos, lo que hará será solamente enseñarlo
+                //Condicional que se encarga de instanciar el objeto del formulario secundario en caso de que esté vacío
 
-                cargarDatos.Activate();
+                if (cargarDatos == null)
+                {
+                    cargarDatos = new frmMenuCargaDatos();
+                    cargarDatos.FormClosed += new FormClosedEventHandler(CerrarForma);
+                    cargarDatos.Show();
+                }
+                else
+                {
+                    //En caso de que el formulario tenga datos, lo que hará será solamente enseñarlo
+
+                    cargarDatos.Activate();
+                }
             }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
+
+
         }
 
         //Botón que llama a la creación del formulario secundario
@@ -73,9 +89,16 @@ namespace wEmpresa
 
         void CerrarForma(object sender, FormClosedEventArgs e)
         {
-            //Vaciado del formulario
+            try
+            {
+                //Vaciado del formulario
 
-            cargarDatos = null;
+                cargarDatos = null;
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
         }
 
         //Método que se encarga de cerrar el formulario

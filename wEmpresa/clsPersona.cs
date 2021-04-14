@@ -10,7 +10,6 @@ namespace wEmpresa
     {
 
         //Getters y setters que almacena los datos de entrada del archivo XML
-
         public double Cedula { get; set; }
         public String Nombre { get; set; }
         public String Apellido { get; set; }
