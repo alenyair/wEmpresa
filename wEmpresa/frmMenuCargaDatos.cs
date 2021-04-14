@@ -38,6 +38,7 @@ namespace wEmpresa
         {
 
             btnLimpiar_Click_1(sender, e);
+            dtgCargaDatos.ForeColor = Color.Black;
 
             //Creación y adición de las columnas del DataGridView al formulario
 
@@ -179,48 +180,67 @@ namespace wEmpresa
         private void btnXML_Click(object sender, EventArgs e)
         {
 
-            btnLimpiar_Click_1(sender, e);
-
-            //Creación de lista y serializador, instanciación de los mismos
-
-            List<clsPersona> p1 = new List<clsPersona>();
-            XmlSerializer serial = new XmlSerializer(typeof(List<clsPersona>));
-            
-            //Variable de texto donde se almacena la ruta del archivo para posteriormente abrirse
-
-            String ruta = string.Empty;
-
-            //Apertura de archivos .xml
-
-            OpenFileDialog cargarArchivo = new OpenFileDialog();
-            cargarArchivo.InitialDirectory = Application.StartupPath;
-            cargarArchivo.Filter = "Archivos (*.xml)|*.xml*";
-            
-            //Condifional donde se verifica si se cargó un archivo y si el archivo no está vacío
-
-            if (cargarArchivo.ShowDialog() == DialogResult.OK)
+            try
             {
+                dtgCargaDatos.ForeColor = Color.Black;
+                btnLimpiar_Click_1(sender, e);
 
-                //Guardado de la ruta de acceso al archivo para usarlo posteriormente
+                //Creación de lista y serializador, instanciación de los mismos
 
-                ruta = @cargarArchivo.FileName;
+                List<clsPersona> p1 = new List<clsPersona>();
+                XmlSerializer serial = new XmlSerializer(typeof(List<clsPersona>));
 
-                if ((myStream = cargarArchivo.OpenFile()) != null)
+                //Variable de texto donde se almacena la ruta del archivo para posteriormente abrirse
+
+                String ruta = string.Empty;
+
+                //Apertura de archivos .xml
+
+                OpenFileDialog cargarArchivo = new OpenFileDialog();
+                cargarArchivo.InitialDirectory = Application.StartupPath;
+                cargarArchivo.Filter = "Archivos (*.xml)|*.xml*";
+
+                //Condifional donde se verifica si se cargó un archivo y si el archivo no está vacío
+
+                if (cargarArchivo.ShowDialog() == DialogResult.OK)
                 {
 
-                    //Carga de archivo y deserialización del mismo
+                    //Guardado de la ruta de acceso al archivo para usarlo posteriormente
 
-                    using (FileStream fs = new FileStream(ruta, FileMode.Open, FileAccess.Read))
+                    ruta = @cargarArchivo.FileName;
+
+                    if ((myStream = cargarArchivo.OpenFile()) != null)
                     {
-                        p1 = serial.Deserialize(fs) as List<clsPersona>;
+
+                        //Carga de archivo y deserialización del mismo
+
+                        using (FileStream fs = new FileStream(ruta, FileMode.Open, FileAccess.Read))
+                        {
+                            p1 = serial.Deserialize(fs) as List<clsPersona>;
+                        }
+
+                        //Carga de datos al DataGridView
+
+                        dtgCargaDatos.DataSource = p1;
+
                     }
-
-                    //Carga de datos al DataGridView
-
-                    dtgCargaDatos.DataSource = p1;
-                    
                 }
             }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
+        }
+
+        #endregion
+
+        #region [Fecha]
+
+        //Método que se encarga de mostrar la hora actual
+
+        private void FechaHora_Load(object sender, EventArgs e)
+        {
+            lblFecha.Text = DateTime.Now.ToLongDateString();
         }
 
         #endregion
@@ -246,8 +266,12 @@ namespace wEmpresa
             }
         }
 
+
+
+
         #endregion
 
+ 
     }
 
 }

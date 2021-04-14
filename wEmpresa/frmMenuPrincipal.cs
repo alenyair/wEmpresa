@@ -113,8 +113,7 @@ namespace wEmpresa
             tsmiSalir_Click(sender, e);
         }
 
+
         #endregion
-
-
     }
 }
