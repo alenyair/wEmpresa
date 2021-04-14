@@ -52,19 +52,20 @@
     <Compile Include="MenuPrincipal.Designer.cs">
       <DependentUpon>MenuPrincipal.cs</DependentUpon>
     </Compile>
-    <Compile Include="MenuCargaDatos.cs">
+    <Compile Include="frmMenuCargaDatos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MenuCargaDatos.Designer.cs">
-      <DependentUpon>MenuCargaDatos.cs</DependentUpon>
+    <Compile Include="frmMenuCargaDatos.Designer.cs">
+      <DependentUpon>frmMenuCargaDatos.cs</DependentUpon>
     </Compile>
+    <Compile Include="clsPersona.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MenuPrincipal.resx">
       <DependentUpon>MenuPrincipal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MenuCargaDatos.resx">
-      <DependentUpon>MenuCargaDatos.cs</DependentUpon>
+    <EmbeddedResource Include="frmMenuCargaDatos.resx">
+      <DependentUpon>frmMenuCargaDatos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

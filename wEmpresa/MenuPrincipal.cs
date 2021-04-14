@@ -8,50 +8,90 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace wEmpresa
 {
     public partial class frmMenuPrincipal : Form
     {
 
-        private MenuCargaDatos forma;
+        //Creación de clase objeto 
+        private frmMenuCargaDatos cargarDatos;
+
+
         public frmMenuPrincipal()
         {
             InitializeComponent();
         }
 
-        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+        #region [Inicialización de formulario secundario]
 
-        private void nuevoToolStripMenuItem_Click(object sender, EventArgs e)
+        //Creación del formulario secundario de carga de datos
+
+        private void tsmiNuevo_Click(object sender, EventArgs e)
         {
-            if (forma == null)
+
+            //Condicional que se encarga de instanciar el objeto del formulario secundario en caso de que esté vacío
+
+            if (cargarDatos == null)
             {
-                forma = new MenuCargaDatos();
-             //   forma.MdiParent = this;
-                forma.FormClosed += new FormClosedEventHandler(CerrarForma);
-                forma.Show();
+                cargarDatos = new frmMenuCargaDatos();
+                cargarDatos.FormClosed += new FormClosedEventHandler(CerrarForma);
+                cargarDatos.Show();
             }
-
             else
             {
-                forma.Activate();
+                //En caso de que el formulario tenga datos, lo que hará será solamente enseñarlo
+
+                cargarDatos.Activate();
             }
         }
 
-        void CerrarForma(object sender, FormClosedEventArgs e)
+        //Botón que llama a la creación del formulario secundario
+
+        private void btnNuevo_Click(object sender, EventArgs e)
         {
-            forma = null;
+            tsmiNuevo_Click(sender, e);
         }
+
+        #endregion
+
+        #region [Cerrado de formulario]
+
+        //Método que envía un mensaje de salida antes de cerrar el programa (mensaje de confirmación)
 
         private void frmMenuPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
+            //Mensaje de salida de confirmación antes de cerrar
+
             DialogResult resultado = MessageBox.Show("Realmente desea salir?", "Confirmacion",
                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             e.Cancel = (resultado == DialogResult.No);
         }
 
-       
+
+        //Método que borra los datos del formulario
+
+        void CerrarForma(object sender, FormClosedEventArgs e)
+        {
+            //Vaciado del formulario
+
+            cargarDatos = null;
+        }
+
+        //Método que se encarga de cerrar el formulario
+        private void tsmiSalir_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        //Método que llama al cerrado de los 
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            tsmiSalir_Click(sender, e);
+        }
+
+        #endregion
+
+
     }
 }

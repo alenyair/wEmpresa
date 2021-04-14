@@ -1,6 +1,6 @@
 ﻿namespace wEmpresa
 {
-    partial class MenuCargaDatos
+    partial class frmMenuCargaDatos
     {
         /// <summary>
         /// Required designer variable.
@@ -80,6 +80,7 @@
             this.btnXML.TabIndex = 4;
             this.btnXML.Text = "XML";
             this.btnXML.UseVisualStyleBackColor = true;
+            this.btnXML.Click += new System.EventHandler(this.btnXML_Click);
             // 
             // btnLimpiar
             // 
@@ -91,7 +92,7 @@
             this.btnLimpiar.UseVisualStyleBackColor = true;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click_1);
             // 
-            // MenuCargaDatos
+            // frmMenuCargaDatos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -102,7 +103,7 @@
             this.Controls.Add(this.dtgCargaDatos);
             this.Controls.Add(this.lblAreaEmpresa);
             this.Controls.Add(this.dateTimePicker1);
-            this.Name = "MenuCargaDatos";
+            this.Name = "frmMenuCargaDatos";
             this.Text = "MenuCargaDatos";
             ((System.ComponentModel.ISupportInitialize)(this.dtgCargaDatos)).EndInit();
             this.ResumeLayout(false);

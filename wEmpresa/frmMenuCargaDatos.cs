@@ -8,32 +8,29 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Xml.Serialization;
 
 
 namespace wEmpresa
 {
-    public partial class MenuCargaDatos : Form
+    public partial class frmMenuCargaDatos : Form
     {
         private Stream myStream;
         int counter = 0;
         string line;
-        public MenuCargaDatos()
+        public frmMenuCargaDatos()
         {
             InitializeComponent();
         }
 
         private void btnCSV_Click(object sender, EventArgs e)
         {
-            
-            
-
-            
+                  
             DataGridViewTextBoxColumn col1 = new DataGridViewTextBoxColumn();
             col1.HeaderText = "Cedula";
             col1.Width = 200;
             col1.ReadOnly = true;
             dtgCargaDatos.Columns.Add(col1);
-
 
             DataGridViewTextBoxColumn col2 = new DataGridViewTextBoxColumn();
             col2.HeaderText = "nombre";
@@ -78,7 +75,7 @@ namespace wEmpresa
 
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             openFileDialog1.InitialDirectory = Application.StartupPath;
-            openFileDialog1.Filter = "Archivos (*.csv) | csv";
+            openFileDialog1.Filter = "Archivos (*.csv) | *.csv*";
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
@@ -116,13 +113,44 @@ namespace wEmpresa
 
         }
 
-        
+
 
         private void btnLimpiar_Click_1(object sender, EventArgs e)
         {
             dtgCargaDatos.Rows.Clear();
-            
-            
+            dtgCargaDatos.Columns.Clear();     
+        }
+
+        private void btnXML_Click(object sender, EventArgs e)
+        {
+
+            List<clsPersona> p1 = new List<clsPersona>();
+            XmlSerializer serial = new XmlSerializer(typeof(List<clsPersona>));
+            String ruta = string.Empty;
+
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.InitialDirectory = Application.StartupPath;
+            openFileDialog1.Filter = "Archivos (*.xml)|*.xml*";
+
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                ruta = @openFileDialog1.FileName;
+
+                if ((myStream = openFileDialog1.OpenFile()) != null)
+                {
+
+                    using (FileStream fs = new FileStream(ruta, FileMode.Open, FileAccess.Read))
+                    {
+                        p1 = serial.Deserialize(fs) as List<clsPersona>;
+                    }
+                    dtgCargaDatos.DataSource = p1;
+                    
+                }
+            }
+
+
+
         }
     }
     
